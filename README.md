@@ -84,6 +84,7 @@ The full walkthrough, including what to prepare in Event Platform first, is in
 | [Testing](docs/testing.md) | Automated tests, the mock Kaltura backend, manual test plan |
 | [Deployment](docs/deployment.md) | Production checklist, Docker, scaling |
 | [Troubleshooting](docs/troubleshooting.md) | Symptoms, causes and fixes |
+| [References](docs/references.md) | **The Kaltura documentation, repositories and APIs this is based on**, mapped to each part of the app, plus behaviour observed in testing |
 
 ---
 
@@ -114,10 +115,14 @@ docs/                       guides and screenshots
 
 ## References
 
+The main sources are below. [docs/references.md](docs/references.md) maps every part of the app to the official
+documentation it's based on.
+
 * [kaltura/integrated-events-demo](https://github.com/kaltura/integrated-events-demo): Kaltura's reference for embedding CnC and the player
 * [Events Platform public API (OpenAPI spec)](https://github.com/kaltura/mcp-events/blob/main/openapi-public-api.yaml)
 * [Kaltura API documentation](https://developer.kaltura.com/api-docs/) · [docs.kaltura.com](https://docs.kaltura.com/)
 * [Kaltura Player JS](https://github.com/kaltura/kaltura-player-js)
+* [Kaltura API Authentication and Security](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/Kaltura_API_Authentication_and_Security.html) · [Application tokens](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/application-tokens.html)
 
 ## License
 

@@ -1,7 +1,8 @@
 # Kaltura setup
 
 What the site needs from your Kaltura account, why, and where to find each value.
-`npm run setup` finds most of these for you; this page explains what it's doing.
+`npm run setup` finds most of these for you; this page explains what it's doing. Each section cites its
+sources; see also [references.md](references.md).
 
 | # | Item | Used for | Env var |
 |---|---|---|---|
@@ -31,6 +32,8 @@ calls, and a playback-only user KS for each attendee. It is never sent to the br
 
 > Treat it like a root password. Keep it in `.env` or your secret manager. If it leaks, rotate it in KMC.
 
+> **Sources:** [Authentication and Security](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/Kaltura_API_Authentication_and_Security.html) ("A KS should always be generated on the server side")
+
 ## 3. Event Platform team member (admin user)
 
 The Events Platform API only accepts KSs whose user is an Event Platform **team member** with the
@@ -38,6 +41,8 @@ The Events Platform API only accepts KSs whose user is an Event Platform **team 
 Kaltura user ID, usually an email address.
 
 Symptom if wrong: `npm run check` step 2 fails with HTTP 401/403.
+
+> **Sources:** [Events Platform API guide](https://kaltura.md/KALTURA_EVENTS_PLATFORM_API/) · team member roles in the [OpenAPI spec](https://github.com/kaltura/mcp-events/blob/main/openapi-public-api.yaml)
 
 ## 4. Event and sessions
 
@@ -48,6 +53,8 @@ Symptom if wrong: `npm run check` step 2 fails with HTTP 401/403.
   context.
 * `KALTURA_SESSION_ID` is optional. Without it, the site shows the live-now or next upcoming webcast
   session and offers a switcher. Sessions with **private** visibility are hidden unless pinned.
+
+> **Sources:** [OpenAPI spec](https://github.com/kaltura/mcp-events/blob/main/openapi-public-api.yaml) (`sessions/list`, `PublicSessionDto`)
 
 ## 5. Registered attendees
 
@@ -63,6 +70,8 @@ Turn this check off with `REQUIRE_EVENT_REGISTRATION=false` (not recommended).
 
 > **Passwords:** Event Platform invitations don't create a password. That's why the default sign-in
 > mode is `local` (site-managed passwords); see [getting-started.md](getting-started.md#5-give-attendees-access).
+
+> **Sources:** [OpenAPI spec](https://github.com/kaltura/mcp-events/blob/main/openapi-public-api.yaml) (`event-users/list`, `PublicEventUserDto`). The blocked-status rule is this example's own policy; the API documents statuses only as "Invited, Registered, Confirmed, etc."
 
 ## 6–8. Uiconfs (player, CnC, reactions)
 
@@ -95,11 +104,17 @@ the CnC widget loads it itself when reactions are enabled. Leave it empty to tur
 You can also use your own player built in KMC → Studio (Player v7). Make sure it includes the plugins a
 webcast needs (live, and dual-screen/slides if you use them). The EP-provisioned player already does.
 
+> **Sources:** `embedPlaykitJs` URLs from the reference app's [entry-view/app.js](https://github.com/kaltura/integrated-events-demo/blob/main/public/pages/entry-view/app.js) · [uiConf.list](https://developer.kaltura.com/api-docs/service/uiConf/action/list). Uiconf names and tags were observed on an EP account ([references.md](references.md#observed-behaviour-not-in-the-documentation)).
+
 ## 9. `cncAuth` app token
 
 Chat & Collaboration authenticates attendees with a JWT that **your server** signs. The signing key is
-the `token` value of an **app token** whose `sessionPrivileges` is exactly `cncAuth:true`. The CnC service
-looks up that token for your partner (via the JWT `kid` header) to verify signatures.
+the `token` value of an **app token** whose `sessionPrivileges` is exactly `cncAuth:true`, and the JWT
+header carries the partner ID as `kid`. This is the scheme used by Kaltura's reference app
+([BEST_PRACTICES.md](https://github.com/kaltura/integrated-events-demo/blob/main/BEST_PRACTICES.md),
+[cnc.model.ts](https://github.com/kaltura/integrated-events-demo/blob/main/lib/kaltura-integration/cnc.model.ts)).
+Presumably the CnC service uses `kid` to find your partner's token and verify the signature; Kaltura doesn't
+document the server side.
 
 * Find it: `appToken.list` (admin KS), filter on `sessionPrivileges == "cncAuth:true"`.
 * Create it (one-time) if missing; `npm run setup` offers to do this:
@@ -118,6 +133,8 @@ looks up that token for your partner (via the JWT `kid` header) to verify signat
 
 > Keep exactly one active `cncAuth:true` token per account to avoid ambiguity.
 
+> **Sources:** [BEST_PRACTICES.md](https://github.com/kaltura/integrated-events-demo/blob/main/BEST_PRACTICES.md) · [cnc.model.ts](https://github.com/kaltura/integrated-events-demo/blob/main/lib/kaltura-integration/cnc.model.ts) · [appToken.add](https://developer.kaltura.com/api-docs/service/appToken/action/add) · [Application tokens](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/application-tokens.html)
+
 ## 10. Region
 
 | `KALTURA_REGION` | Kaltura API | Events API | Chat service | CDN |
@@ -130,3 +147,5 @@ The NVP values and the EU/DE Events API URLs come from Kaltura's documentation. 
 follow the same naming pattern but haven't been verified by this project; confirm them with your Kaltura
 account team and override any of them with `KALTURA_SERVICE_URL`, `KALTURA_EVENTS_API_URL`,
 `KALTURA_CHAT_SERVICE_URL`, `KALTURA_CDN_URL`.
+
+> **Sources:** Events API servers in the [OpenAPI spec](https://github.com/kaltura/mcp-events/blob/main/openapi-public-api.yaml) · [Events Platform API guide](https://kaltura.md/KALTURA_EVENTS_PLATFORM_API/) · NVP chat URL from the reference app's [entry-view/app.js](https://github.com/kaltura/integrated-events-demo/blob/main/public/pages/entry-view/app.js)

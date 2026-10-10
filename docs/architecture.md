@@ -54,6 +54,10 @@ The server has three jobs:
 Everything else (video delivery, chat, Q&A, polls, moderation, analytics) happens directly between the
 browser and Kaltura.
 
+This design follows Kaltura's reference app [integrated-events-demo](https://github.com/kaltura/integrated-events-demo)
+and its [BEST_PRACTICES.md](https://github.com/kaltura/integrated-events-demo/blob/main/BEST_PRACTICES.md); see
+[references.md](references.md) for all sources.
+
 ---
 
 ## Components

@@ -2,7 +2,8 @@
 
 This guide describes the integration **independently of this codebase**, so you can reproduce it in any
 language or framework (Java/Spring, .NET, PHP, Python/Django, a headless CMS, …). Each step names the
-file in this repo that implements it, for reference.
+file in this repo that implements it, for reference. Every step ends with the official sources it is based on; the full list is in
+[references.md](references.md).
 
 - [What you need to build](#what-you-need-to-build)
 - [Step 1: Server-side admin KS](#step-1-server-side-admin-ks)
@@ -64,6 +65,8 @@ Admin KS used here: type `2`, user = team member, privileges `disableentitlement
 
 **Verify:** `POST /api_v3/service/session/action/get` with `ks=<KS>&format=1` returns your partner and user.
 
+> **Sources:** [generate-ks.ts](https://github.com/kaltura/integrated-events-demo/blob/main/lib/kaltura-integration/ks-utils/generate-ks.ts) (reference app) · Python client [`generateSessionV2`](https://github.com/kaltura/KalturaGeneratedAPIClientsPython/blob/master/KalturaClient/Client.py) · [Authentication and Security](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/Kaltura_API_Authentication_and_Security.html) · [session.start](https://developer.kaltura.com/api-docs/service/session/action/start) · [session.get](https://developer.kaltura.com/api-docs/service/session/action/get) · team-member requirement: [Events Platform API guide](https://kaltura.md/KALTURA_EVENTS_PLATFORM_API/)
+
 ---
 
 ## Step 2: Read the event from the Events Platform API
@@ -100,6 +103,8 @@ Cache both responses for a minute or more; they change rarely.
 
 Implementation: [src/kaltura/events-api.js](../src/kaltura/events-api.js).
 
+> **Sources:** [Events Platform API OpenAPI spec](https://github.com/kaltura/mcp-events/blob/main/openapi-public-api.yaml). The 15-per-page limit on `events/list` was observed on the live API; it isn't in the spec.
+
 ---
 
 ## Step 3: Authenticate the attendee and check registration
@@ -128,6 +133,8 @@ failure a `KalturaAPIException`. Event Platform invitations don't create passwor
 
 Implementation: [src/auth/authenticate.js](../src/auth/authenticate.js).
 
+> **Sources:** [Events Platform API OpenAPI spec](https://github.com/kaltura/mcp-events/blob/main/openapi-public-api.yaml) (`event-users/list`) · [user.loginByLoginId](https://developer.kaltura.com/api-docs/service/user/action/loginByLoginId)
+
 ---
 
 ## Step 4: Issue the player KS
@@ -145,6 +152,8 @@ Expiry: longer than the session (this repo defaults to 12 hours).
 > The reference app [integrated-events-demo](https://github.com/kaltura/integrated-events-demo) uses
 > partner-wide `disableentitlement`. Scoping it to the entry, as here, is tighter. Widen it only if your
 > player must play other restricted entries.
+
+> **Sources:** [kaltura-client-wrapper.ts](https://github.com/kaltura/integrated-events-demo/blob/main/lib/kaltura-integration/kaltura-client-wrapper.ts) (`PLAYBACK_BASE_ROLE`) and [kaltura-user.model.ts](https://github.com/kaltura/integrated-events-demo/blob/main/lib/kaltura-integration/kaltura-user.model.ts) (`virtualeventid`) in the reference app · [Authentication and Security](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/Kaltura_API_Authentication_and_Security.html) (privileges incl. `disableentitlementforentry`, `setrole`)
 
 ---
 
@@ -195,6 +204,8 @@ Implementation (no library, `node:crypto`): [src/kaltura/cnc.js](../src/kaltura/
 **Endpoint:** return the KS, JWT and IDs to the authenticated page, with `Cache-Control: no-store`.
 This repo's shape is documented in [http-api.md](http-api.md#get-apisession-config).
 
+> **Sources:** [cnc.model.ts](https://github.com/kaltura/integrated-events-demo/blob/main/lib/kaltura-integration/cnc.model.ts) and [BEST_PRACTICES.md](https://github.com/kaltura/integrated-events-demo/blob/main/BEST_PRACTICES.md) (reference app) · [appToken.list](https://developer.kaltura.com/api-docs/service/appToken/action/list) · [appToken.add](https://developer.kaltura.com/api-docs/service/appToken/action/add) · [Application tokens](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/application-tokens.html)
+
 ---
 
 ## Step 6: Embed the player
@@ -219,6 +230,8 @@ player.loadMedia({ entryId });
 * Use the Event Platform player uiconf ("EP All Plugins") or a Player v7 from KMC Studio with the live plugins.
 * For live sessions the player shows an offline slate until the broadcast starts, then switches to live by itself.
 * `loadScript` is a plain promise wrapper around a `<script>` tag (see [public/session.js](../public/session.js)).
+
+> **Sources:** [entry-view/app.js](https://github.com/kaltura/integrated-events-demo/blob/main/public/pages/entry-view/app.js) (reference app) · [Kaltura Player JS](https://github.com/kaltura/kaltura-player-js) and its [configuration docs](https://github.com/kaltura/kaltura-player-js/blob/master/docs/configuration.md)
 
 ---
 
@@ -295,6 +308,8 @@ The embedded API object also exposes `unmountCnc`, `unmountSidebarButtons`, `unm
 * Collapsing: when the user closes the panel, hide `#cnc-chat` and shrink the panel to the sidebar width
   (see `.chat-panel.collapsed` in [public/styles.css](../public/styles.css)).
 
+> **Sources:** [entry-view/app.js](https://github.com/kaltura/integrated-events-demo/blob/main/public/pages/entry-view/app.js) and [entry-view/cnc.css](https://github.com/kaltura/integrated-events-demo/blob/main/public/pages/entry-view/cnc.css) (reference app). The `unmount*` functions and the reactions bundle being loaded by the CnC widget were observed in the KEP widgets 7.53.0 bundle; see [references.md](references.md#observed-behaviour-not-in-the-documentation).
+
 ---
 
 ## Step 8: Content Security Policy
@@ -314,6 +329,8 @@ If your site sends a CSP, allow at least:
 
 Start in report-only mode and watch the console during a real event. This repo's policy is built in
 `buildCsp()` in [src/app.js](../src/app.js).
+
+> **Sources:** The `data:` media requirement and the host list were observed while testing; see [references.md](references.md#observed-behaviour-not-in-the-documentation).
 
 ---
 

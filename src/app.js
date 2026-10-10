@@ -211,6 +211,8 @@ export function createApp({ config, kalturaApi, eventsApi, logger = console } = 
       const expirySeconds = Math.round(k.ksExpiryHours * 3600);
       const isModerator = (user.roles || []).includes('Moderator');
 
+      // Playback-only user KS. Privileges per Kaltura's reference app (integrated-events-demo,
+      // kaltura-client-wrapper.ts / kaltura-user.model.ts), with entitlement narrowed to this entry.
       const ks = generateKs({
         partnerId: k.partnerId,
         adminSecret: k.adminSecret,
