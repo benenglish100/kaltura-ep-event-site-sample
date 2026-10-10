@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event session</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/session.js" defer></script>
+</head>
+<body class="session-page">
+  <header class="topbar">
+    <div class="topbar-title">
+      <span id="event-name" class="event-name"></span>
+      <select id="session-switcher" aria-label="Choose session" hidden></select>
+    </div>
+    <div class="topbar-user">
+      <span id="user-name"></span>
+      <button id="logout" type="button" class="link-button">Sign out</button>
+    </div>
+  </header>
+
+  <p id="page-error" class="error banner" role="alert" hidden></p>
+
+  <main id="content" class="content">
+    <section class="stage">
+      <!-- Kaltura webcast player renders directly into this element (no iframe) -->
+      <div class="player-frame">
+        <div id="player"></div>
+        <!-- CnC live reactions float over the player -->
+        <div id="live-reactions"></div>
+      </div>
+      <div class="session-info">
+        <h1 id="session-name"></h1>
+        <p id="session-time" class="muted"></p>
+        <p id="session-description"></p>
+      </div>
+    </section>
+
+    <!-- Kaltura Chat & Collaboration embedded widgets render into these elements -->
+    <aside id="chat-panel" class="chat-panel">
+      <div id="cnc-container"></div>
+      <div id="cnc-chat"></div>
+      <div id="cnc-sidebar">
+        <div id="cnc-sidebar-buttons"></div>
+        <div id="cnc-reactions"></div>
+        <div id="cnc-sidebar-settings"></div>
+      </div>
+      <p id="chat-error" class="error" role="alert" hidden></p>
+    </aside>
+  </main>
+</body>
+</html>

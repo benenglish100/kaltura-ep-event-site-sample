@@ -1,0 +1,28 @@
+{
+  "name": "kaltura-event-site-example",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Example event website that embeds the Kaltura Event Platform webcast player and Chat & Collaboration (CnC) natively, backed by Kaltura SaaS.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "dev": "node --env-file-if-exists=.env --watch src/server.js",
+    "check": "node --env-file-if-exists=.env scripts/check-kaltura.js",
+    "add-user": "node --env-file-if-exists=.env scripts/add-user.js",
+    "test": "node --test test/*.test.js",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "cookie-session": "2.1.1",
+    "express": "5.1.0",
+    "express-rate-limit": "7.5.0",
+    "helmet": "8.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}
