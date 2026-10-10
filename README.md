@@ -1,9 +1,16 @@
-# Kaltura Event Site Example
+# Event Site Sample for Kaltura Event Platform (unofficial)
 
 [![CI](../../actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-An example of building **your own event website** on top of **Kaltura Event Platform** (EP).
+> [!WARNING]
+> **Unofficial sample code: not created, endorsed or supported by Kaltura.**
+> It comes with **no warranty and no support**, and it is **not production ready**. It's a deliberately
+> simple design to help developers understand the integration concepts. Treat it as a learning aid,
+> not as a product. Read the full [disclaimer](#disclaimer).
+
+A simple sample showing developers how to build **their own event website** on top of
+**Kaltura Event Platform** (EP).
 
 You run the event in Event Platform: create the event and sessions, invite attendees, and broadcast.
 Attendees watch and interact on a site that **you** design and host. This repository shows how to
@@ -20,9 +27,9 @@ embed the two attendee-facing EP components **natively in your own pages, withou
 |---|---|
 | <img src="docs/images/login.png" alt="Sign-in page" width="420"> | <img src="docs/images/session-mobile.png" alt="Session page on a phone" width="200"> |
 
-> **This is sample code.** It's a complete, tested starting point and reference implementation,
-> not a supported Kaltura product. Review it, adapt it to your own identity provider, design and
-> hosting, and test it before using it in production.
+The design is intentionally minimal (two pages, a small Node.js server, no framework or build step) so
+the integration is easy to follow. The point is to show **how the pieces fit together**; anything you
+build for real use needs your own design, engineering and review.
 
 ---
 
@@ -36,7 +43,7 @@ The attendee journey is deliberately simple:
 
 Everything an organizer does (event, sessions, attendees, moderation, broadcasting) stays in Event Platform.
 
-### What the example demonstrates
+### Concepts the sample demonstrates
 
 * Issuing a **playback-only Kaltura Session (KS)** for the player, generated locally on the server
 * Signing the **CnC JWT** with the account's `cncAuth` app token
@@ -44,8 +51,10 @@ Everything an organizer does (event, sessions, attendees, moderation, broadcasti
 * Using the **Events Platform API** to read the event, its sessions and its registered users
 * Mapping attendees to their **Event Platform identity**, so chat, Q&A, moderation and analytics line up with EP
 * A **setup wizard** that discovers the IDs you need on your account
-* Production basics: secrets kept server-side, signed `httpOnly` session cookies, CSRF protection,
-  rate-limited sign-in, a Content Security Policy, health check, Docker image, CI, and unit/integration/browser tests
+* Basic security ideas worth carrying into your own build: secrets kept server-side, signed `httpOnly`
+  session cookies, CSRF protection, rate-limited sign-in, a Content Security Policy. These are
+  illustrations, not a complete or reviewed security implementation.
+* Automated tests against a mock Kaltura backend, so you can see the expected API interactions
 
 ---
 
@@ -82,7 +91,7 @@ The full walkthrough, including what to prepare in Event Platform first, is in
 | [HTTP API](docs/http-api.md) | The site's own endpoints and response shapes |
 | [Customization](docs/customization.md) | Plugging in your SSO, branding, layout, CnC options |
 | [Testing](docs/testing.md) | Automated tests, the mock Kaltura backend, manual test plan |
-| [Deployment](docs/deployment.md) | Production checklist, Docker, scaling |
+| [Deployment](docs/deployment.md) | Running it outside your laptop, and the gaps to close before any real use |
 | [Troubleshooting](docs/troubleshooting.md) | Symptoms, causes and fixes |
 | [References](docs/references.md) | **The Kaltura documentation, repositories and APIs this is based on**, mapped to each part of the app, plus behaviour observed in testing |
 
@@ -124,6 +133,26 @@ documentation it's based on.
 * [Kaltura Player JS](https://github.com/kaltura/kaltura-player-js)
 * [Kaltura API Authentication and Security](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/Kaltura_API_Authentication_and_Security.html) · [Application tokens](https://developer.kaltura.com/api-docs/VPaaS-API-Getting-Started/application-tokens.html)
 
+## Disclaimer
+
+* **Unofficial.** This repository was **not created by Kaltura** and isn't an official Kaltura product,
+  sample or SDK. It isn't endorsed, reviewed, maintained or supported by Kaltura. "Kaltura" and related
+  names are used only to describe what the sample integrates with; they're trademarks of their owners.
+* **Sample code only.** It exists to help developers understand how to integrate Kaltura Event Platform
+  components into their own website. It's intentionally simple and leaves out much of what a real site
+  needs (see [known gaps](docs/deployment.md#known-gaps)).
+* **Not production ready.** Don't use it as-is for real events, real attendees or real data. If you build
+  something based on these concepts, you're responsible for its design, security, testing, compliance
+  and operation.
+* **No warranty, no support.** Provided "as is", without warranty of any kind (see [LICENSE](LICENSE)).
+  There is no support from Kaltura or from the authors. Issues and pull requests may be looked at on a
+  best-effort basis, or not at all.
+* **Kaltura behaviour can change.** Parts of the sample depend on behaviour observed on a live account
+  that isn't documented ([references.md](docs/references.md#observed-behaviour-not-in-the-documentation)).
+  Always check against Kaltura's official documentation and your Kaltura account team.
+
+For help with Kaltura products themselves, use Kaltura's official documentation and support channels.
+
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE). Provided "as is", without warranty of any kind.

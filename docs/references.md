@@ -1,5 +1,9 @@
 # References and sources
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 This page lists the Kaltura documentation, repositories and APIs this example is based on, and which
 part of the app each one informed, so you can go back to the source when you build your own integration.
 

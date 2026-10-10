@@ -1,5 +1,9 @@
 # Customization
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 - [Plug in your own sign-in](#plug-in-your-own-sign-in)
 - [Branding](#branding)
 - [Layout](#layout)

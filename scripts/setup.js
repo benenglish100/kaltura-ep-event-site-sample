@@ -62,7 +62,8 @@ async function main() {
   const cur = (key) => existing[key] || '';
   const values = {};
 
-  console.log('Kaltura Event Platform site setup. Press Enter to accept the value in [brackets].');
+  console.log('Event site sample setup (unofficial sample code, not supported by Kaltura, not production ready).');
+  console.log('Press Enter to accept the value in [brackets].');
 
   heading('1. Kaltura account (KMC > Settings > Integration Settings)');
   const region = (await ask(`Region (${Object.keys(REGIONS).join('/')})`, { fallback: cur('KALTURA_REGION') || 'NVP' })).toUpperCase();

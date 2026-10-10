@@ -1,6 +1,15 @@
 # Deployment
 
-- [Production checklist](#production-checklist)
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
+**This sample is not production ready.** This page explains how to run it somewhere other than your laptop
+(e.g. a shared test environment or a demo), and lists the gaps you'd need to close if you build something
+real based on it. It is not a guide to running real events on this code.
+
+- [Known gaps](#known-gaps)
+- [If you take the concepts further](#if-you-take-the-concepts-further)
 - [Run with Node](#run-with-node)
 - [Run with Docker](#run-with-docker)
 - [Behind a reverse proxy](#behind-a-reverse-proxy)
@@ -10,7 +19,28 @@
 
 ---
 
-## Production checklist
+## Known gaps
+
+The sample is deliberately simple. Among other things, it does **not** have:
+
+* **Real identity management.** The two sign-in modes are demonstrations. `users.json` isn't a user
+  database: no password policy, reset flow, MFA, lockout or account management.
+* **A security review.** No penetration test, threat model or third-party audit has been done.
+* **Load or resilience testing.** Behaviour under many concurrent attendees, or when Kaltura APIs are slow
+  or failing, hasn't been tested beyond basic error handling.
+* **Shared state for multiple instances.** Caches and the login rate limiter are in memory, per process.
+* **Operational tooling.** No structured logging, metrics, tracing, alerting or audit trail.
+* **Accessibility, localization and browser-support work.** The pages haven't been audited for accessibility
+  (WCAG), and they're English only.
+* **Privacy and compliance work.** No cookie banner, privacy notice or data-retention handling; the consent
+  text in `public/legal.txt` is a placeholder.
+* **Coverage of all session types.** Only webcast-style sessions are handled. Interactive rooms aren't.
+* **Kaltura support.** It relies on behaviour observed on one account that may change
+  ([references.md](references.md#observed-behaviour-not-in-the-documentation)).
+
+## If you take the concepts further
+
+A starting point (not exhaustive) for anything beyond a demo:
 
 - [ ] Served over **HTTPS**
 - [ ] `NODE_ENV=production` (secure cookies, asset caching)

@@ -1,5 +1,9 @@
 # Architecture
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 - [Overview](#overview)
 - [Components](#components)
 - [Flow 1: sign-in](#flow-1-sign-in)
@@ -181,6 +185,9 @@ The attendee's display name in CnC comes from their Kaltura/EP profile.
 ---
 
 ## Security model
+
+These measures illustrate the ideas a real implementation needs. They aren't a complete or reviewed
+security design (see [known gaps](deployment.md#known-gaps)).
 
 | Concern | Measure |
 |---|---|

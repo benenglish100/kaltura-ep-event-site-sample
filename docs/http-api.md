@@ -1,5 +1,9 @@
 # HTTP API
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 The site's own endpoints. All JSON. Errors are `{ "error": "<code>" }`.
 
 | Method | Path | Auth | Purpose |

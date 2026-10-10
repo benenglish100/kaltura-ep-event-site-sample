@@ -1,5 +1,9 @@
 # Troubleshooting
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 Start with **`npm run check`**. It pinpoints most configuration problems. For sign-in problems, read the
 server terminal: every failed sign-in is logged with its reason.
 

@@ -1,5 +1,9 @@
 # Configuration
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 All configuration comes from environment variables. Locally they're read from **`.env`**
 (`npm start` runs `node --env-file-if-exists=.env`). In production, set them in your platform's
 environment or secret manager. `npm run setup` writes `.env` for you; [.env.example](../.env.example)

@@ -1,8 +1,8 @@
 {
-  "name": "kaltura-event-site-example",
+  "name": "event-site-sample-kaltura-ep",
   "version": "1.0.0",
   "private": true,
-  "description": "Example event website that embeds the Kaltura Event Platform webcast player and Chat & Collaboration (CnC) natively, backed by Kaltura SaaS.",
+  "description": "Unofficial, unsupported sample showing how to embed the Kaltura Event Platform webcast player and Chat & Collaboration in your own website. Not created by Kaltura; not production ready.",
   "type": "module",
   "engines": {
     "node": ">=22.9"

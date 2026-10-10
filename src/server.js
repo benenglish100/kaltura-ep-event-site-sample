@@ -19,7 +19,8 @@ try {
 
 const app = createApp({ config });
 const server = app.listen(config.port, () => {
-  console.log(`Event site listening on http://localhost:${config.port}`);
+  console.log(`Event site sample listening on http://localhost:${config.port}`);
+  console.log('  Unofficial sample code, not supported by Kaltura, not production ready.');
   console.log(`  partner ${config.kaltura.partnerId}, event ${config.kaltura.eventId}, auth mode "${config.auth.mode}"`);
 });
 

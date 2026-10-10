@@ -1,5 +1,9 @@
 # Testing
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 | Command | What it runs | Needs Kaltura? |
 |---|---|---|
 | `npm test` | Unit, HTTP integration and setup-wizard tests (Node test runner) | No (mock backend) |

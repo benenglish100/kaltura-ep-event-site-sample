@@ -1,5 +1,9 @@
 # Integration guide: rebuilding this on your own platform
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 This guide describes the integration **independently of this codebase**, so you can reproduce it in any
 language or framework (Java/Spring, .NET, PHP, Python/Django, a headless CMS, …). Each step names the
 file in this repo that implements it, for reference. Every step ends with the official sources it is based on; the full list is in

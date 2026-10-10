@@ -1,5 +1,9 @@
 # Kaltura setup
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 What the site needs from your Kaltura account, why, and where to find each value.
 `npm run setup` finds most of these for you; this page explains what it's doing. Each section cites its
 sources; see also [references.md](references.md).

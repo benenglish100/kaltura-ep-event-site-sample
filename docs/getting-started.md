@@ -1,5 +1,9 @@
 # Getting started
 
+> [!NOTE]
+> Unofficial sample code, not created or supported by Kaltura. No warranty, not production ready.
+> See the [disclaimer](../README.md#disclaimer).
+
 This guide takes you from an empty Event Platform event to attendees watching and chatting on your
 own site. It takes about 15 minutes if your Kaltura account already has Event Platform.
 
@@ -120,9 +124,9 @@ which is git-ignored. Run the command again to reset a password.
 The site verifies the password against the user's **Kaltura login** (`user.loginByLoginId`). Use this only
 if your attendees already have Kaltura logins with passwords.
 
-### Your own sign-in (production)
+### Your own sign-in
 
-For a real deployment you'll typically replace both with your identity provider (SSO, your CMS, a
+If you build a real site from these concepts, you'd replace both with your identity provider (SSO, your CMS, a
 registration system). There is one function to change; see [customization.md](customization.md#plug-in-your-own-sign-in).
 
 ---
